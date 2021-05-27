@@ -1,0 +1,18 @@
+{% extends 'core/base.html' %} {% load crispy_forms_tags %} {% block body %}
+
+<center class="container">
+    <form method="POST" style="margin: 4%; padding:10%; border-radius:1%;">
+        <h1>Registeration Form</h1>
+        <br><br> {% csrf_token %}
+        <fieldset class="form-group">
+            {{ form|crispy}}
+        </fieldset>
+        <center>
+            <button class="btn btn-outline-info" type="submit"><span class="glyphicon glyphicon-log-in"></span> &nbsp; Register</button>
+        </center>
+        <br/>
+        <p><a href="{% url 'login' %}" style="color: blue;">Already have an account? login!</a></p>
+    </form>
+</center>
+
+{% endblock %}

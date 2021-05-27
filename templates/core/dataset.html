@@ -1,0 +1,679 @@
+ {% load static %}
+
+
+
+<!-- <a style="color: blueviolet;font-size:26px;" href="{% static thefile %}" download>Download</a> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>devX || Single</title>
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+
+
+    <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'assets/css/ritik.css' %}">
+</head>
+
+<body>
+    <!-- Styles -->
+    <style>
+        #chartdiv,
+        #chartdiv_line,
+        #chartdiv_reg {
+            width: 100%;
+            height: 500px;
+        }
+        
+        table,
+        th,
+        td {
+            border: 1px solid #450b78;
+        }
+    </style>
+
+    <!-- Resources -->
+    <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+    <!-- Chart code -->
+    <script>
+        am4core.ready(function() {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            // Create chart instance
+            var chart = am4core.create("chartdiv", am4charts.XYChart3D);
+            chart.depth = 300;
+            chart.angle = 60;
+            // Add data
+
+            // input data
+            var data = '{{ graph3d }}'
+            console.log(JSON.parse(data.replace(/&quot;/g, '"')))
+
+
+            console.log((data))
+
+            chart.data = JSON.parse(data.replace(/&quot;/g, '"'));
+
+
+
+            // Create axes
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "Model";
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.renderer.minGridDistance = 10;
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            // valueAxis.title.text = "GDP growth rate";
+            valueAxis.renderer.labels.template.adapter.add("text", function(text) {
+                return text + "%";
+            });
+
+            // Create series
+            var series = chart.series.push(new am4charts.ColumnSeries3D());
+            series.dataFields.valueY = "Accuracy";
+            series.dataFields.categoryX = "Model";
+            series.name = "Accuracy";
+            series.clustered = false;
+            series.columns.template.tooltipText = "Accuracy: [bold]{valueY}[/]";
+            series.columns.template.fillOpacity = 0.9;
+
+            var series2 = chart.series.push(new am4charts.ColumnSeries3D());
+            series2.dataFields.valueY = "AUC";
+            series2.dataFields.categoryX = "Model";
+            series2.name = "AUC";
+            series2.clustered = false;
+            series2.columns.template.tooltipText = "AUC: [bold]{valueY}[/]";
+            series.columns.template.fillOpacity = 01;
+
+            var series3 = chart.series.push(new am4charts.ColumnSeries3D());
+            series3.dataFields.valueY = "Recall";
+            series3.dataFields.categoryX = "Model";
+            series3.name = "Recall";
+            series3.clustered = false;
+            series3.columns.template.tooltipText = "Recall: [bold]{valueY}[/]";
+
+            var series4 = chart.series.push(new am4charts.ColumnSeries3D());
+            series4.dataFields.valueY = "Prec.";
+            series4.dataFields.categoryX = "Model";
+            series4.name = "Prec.";
+            series4.clustered = false;
+            series4.columns.template.tooltipText = "Prec.: [bold]{valueY}[/]";
+
+            var series5 = chart.series.push(new am4charts.ColumnSeries3D());
+            series5.dataFields.valueY = "F1";
+            series5.dataFields.categoryX = "Model";
+            series5.name = "F1";
+            series5.clustered = false;
+            series5.columns.template.tooltipText = "F1: [bold]{valueY}[/]";
+
+            var series6 = chart.series.push(new am4charts.ColumnSeries3D());
+            series6.dataFields.valueY = "Kappa";
+            series6.dataFields.categoryX = "Model";
+            series6.name = "Kappa";
+            series6.clustered = false;
+            series6.columns.template.tooltipText = "Kappa: [bold]{valueY}[/]";
+
+            var series7 = chart.series.push(new am4charts.ColumnSeries3D());
+            series7.dataFields.valueY = "MCC";
+            series7.dataFields.categoryX = "Model";
+            series7.name = "MCC";
+            series7.clustered = false;
+            series7.columns.template.tooltipText = "MCC: [bold]{valueY}[/]";
+
+            var series8 = chart.series.push(new am4charts.ColumnSeries3D());
+            series8.dataFields.valueY = "TT(sec)";
+            series8.dataFields.categoryX = "Model";
+            series8.name = "TT(sec)";
+            series8.clustered = false;
+            series8.columns.template.tooltipText = "TT(sec): [bold]{valueY}[/]";
+
+        }); // end am4core.ready()
+    </script>
+
+
+    <script>
+        am4core.ready(function() {
+
+            // Themes begin
+            am4core.useTheme(am4themes_animated);
+            // Themes end
+
+            // Create chart instance
+            var chart = am4core.create("chartdiv_reg", am4charts.XYChart3D);
+            chart.depth = 300;
+            chart.angle = 60;
+            // Add data
+
+            // input data
+            var data = '{{ graph3d_reg }}'
+            console.log(JSON.parse(data.replace(/&quot;/g, '"')))
+
+
+            console.log((data))
+
+            chart.data = JSON.parse(data.replace(/&quot;/g, '"'));
+
+
+
+            // Create axes
+            var categoryAxis = chart.xAxes.push(new am4charts.CategoryAxis());
+            categoryAxis.dataFields.category = "Model";
+            categoryAxis.renderer.grid.template.location = 0;
+            categoryAxis.renderer.minGridDistance = 10;
+
+            var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+            // valueAxis.title.text = "GDP growth rate";
+            valueAxis.renderer.labels.template.adapter.add("text", function(text) {
+                return text + "%";
+            });
+
+            // Create series
+            var series = chart.series.push(new am4charts.ColumnSeries3D());
+            series.dataFields.valueY = "MAE";
+            series.dataFields.categoryX = "Model";
+            series.name = "MAE";
+            series.clustered = false;
+            series.columns.template.tooltipText = "MAE: [bold]{valueY}[/]";
+            series.columns.template.fillOpacity = 0.9;
+
+            var series2 = chart.series.push(new am4charts.ColumnSeries3D());
+            series2.dataFields.valueY = "MSE";
+            series2.dataFields.categoryX = "Model";
+            series2.name = "MSE";
+            series2.clustered = false;
+            series2.columns.template.tooltipText = "MSE: [bold]{valueY}[/]";
+            series.columns.template.fillOpacity = 01;
+
+            var series3 = chart.series.push(new am4charts.ColumnSeries3D());
+            series3.dataFields.valueY = "RMSE";
+            series3.dataFields.categoryX = "Model";
+            series3.name = "RMSE";
+            series3.clustered = false;
+            series3.columns.template.tooltipText = "RMSE: [bold]{valueY}[/]";
+
+            var series4 = chart.series.push(new am4charts.ColumnSeries3D());
+            series4.dataFields.valueY = "R2";
+            series4.dataFields.categoryX = "Model";
+            series4.name = "R2";
+            series4.clustered = false;
+            series4.columns.template.tooltipText = "R2: [bold]{valueY}[/]";
+
+            var series5 = chart.series.push(new am4charts.ColumnSeries3D());
+            series5.dataFields.valueY = "RMSLE";
+            series5.dataFields.categoryX = "Model";
+            series5.name = "RMSLE";
+            series5.clustered = false;
+            series5.columns.template.tooltipText = "RMSLE: [bold]{valueY}[/]";
+
+            var series6 = chart.series.push(new am4charts.ColumnSeries3D());
+            series6.dataFields.valueY = "MAPE";
+            series6.dataFields.categoryX = "Model";
+            series6.name = "MAPE";
+            series6.clustered = false;
+            series6.columns.template.tooltipText = "MAPE: [bold]{valueY}[/]";
+
+            var series7 = chart.series.push(new am4charts.ColumnSeries3D());
+            series7.dataFields.valueY = "TT (Sec)";
+            series7.dataFields.categoryX = "Model";
+            series7.name = "TT (Sec)";
+            series7.clustered = false;
+            series7.columns.template.tooltipText = "TT (Sec): [bold]{valueY}[/]";
+
+            // var series8 = chart.series.push(new am4charts.ColumnSeries3D());
+            // series8.dataFields.valueY = "TT(sec)";
+            // series8.dataFields.categoryX = "Model";
+            // series8.name = "TT(sec)";
+            // series8.clustered = false;
+            // series8.columns.template.tooltipText = "TT(sec): [bold]{valueY}[/]";
+
+        }); // end am4core.ready()
+    </script>
+
+    <!-- HTML -->
+
+    <!-- ['Gradient Boosting Classifier', 'Decision Tree Classifier', 'Random Forest Classifier', 'Logistic Regression', 'Light Gradient Boosting Machine', 'SVM - Linear Kernel', 'Extra Trees Classifier', 'Ada Boost Classifier', 'Ridge Classifier', 'Linear Discriminant
+    Analysis', 'K Neighbors Classifier', 'Naive Bayes', 'Quadratic Discriminant Analysis'] -->
+
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="{% static 'assets/img/logo/logo.png' %}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <header>
+
+        <div class="header-area header-transparrent ">
+            <div class="main-header header-sticky">
+                <div class="container">
+                    <div class="row align-items-center">
+
+                        <div class="col-xl-2 col-lg-2 col-md-2">
+                            <div class="logo">
+                                <a href="index.html"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="col-xl-10 col-lg-10 col-md-10">
+
+                            <div class="main-menu f-right d-none d-lg-block">
+                                <nav>
+                                    <ul id="navigation">
+                                        <!-- <li><a href="feature.html">Feature</a></li> -->
+                                        <!-- <li><a href="services.html">Services</a></li> -->
+                                        <!-- <li><a href="pricing.html">Pricing</a></li> -->
+                                        <!-- <li><a href="#">Pages</a>
+                                        <ul class="submenu">
+                                          <li><a href="blog.html">Blog</a></li>
+                                          <li><a href="single-blog.html">Blog Details</a></li>
+                                          <li><a href="elements.html">Element</a></li>
+                                        </ul>
+                                      </li> -->
+                                        <li class="active"><a href="contact.html">Contact</a></li>
+                                        <li>
+                                            <a href="signup.html"> <span class="bg-purple white p-2 rounded">Register</span></a>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+
+                        <div class="col-12">
+                            <div class="mobile_menu d-block d-lg-none"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </header>
+
+    <div class="services-area">
+        <div class="container">
+
+            <div class="row d-flex justify-content-center">
+                <div class="col-lg-8">
+                    <div class="section-tittle text-center mb-80">
+                        <h2>{TITLE}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <section class="contact-section">
+        <script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/charts.js"></script>
+        <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+
+
+        <!-- <div class="fluid-container p-1">
+
+        <div class="row">
+            <div class="col-6">
+                <div id="chartdiv"></div>
+            </div>
+            <div class="col-6">
+                <table class='w-100 text-center mt-5 mb-5'>
+                    <tr>
+                        <th>Model</th>
+                        <th>Accuracy</th>
+                        <th>AUC</th>
+                        <th>Recall</th>
+                        <th>Prec.</th>
+                        <th>F1</th>
+                        <th>Kappa</th>
+                        <th>MCC</th>
+                        <th>TT (Sec)</th>
+                    </tr>
+                    <tr>
+                        <td>Gradient Boosting Classifier(GBC)</td>
+                        <td>0.781</td>
+                        <td>0.0915</td>
+                        <td>0.709</td>
+                        <td>0.7953</td>
+                        <td>0.7691</td>
+                        <td>0.6546</td>
+                        <td>0.6708</td>
+                        <td>0.618</td>
+                    </tr>
+                    <tr>
+                        <td>Decision Tree Classifier(DTC)</td>
+                        <td>0.7805</td>
+                        <td>0.0842</td>
+                        <td>0.727</td>
+                        <td>0.8113</td>
+                        <td>0.7792</td>
+                        <td>0.6597</td>
+                        <td>0.6736</td>
+                        <td>0.024</td>
+                    </tr>
+                    <tr>
+                        <td>Random Forest Classifier(RFC)</td>
+                        <td>0.7586</td>
+                        <td>0.0888</td>
+                        <td>0.6476</td>
+                        <td>0.7593</td>
+                        <td>0.7449</td>
+                        <td>0.6115</td>
+                        <td>0.6268</td>
+                        <td>0.525</td>
+                    </tr>
+                    <tr>
+                        <td>Logistic Regression(LR)</td>
+                        <td>0.7519</td>
+                        <td>0.0902</td>
+                        <td>0.6042</td>
+                        <td>0.7368</td>
+                        <td>0.726</td>
+                        <td>0.597</td>
+                        <td>0.6194</td>
+                        <td>0.075</td>
+                    </tr>
+                    <tr>
+                        <td>Light Gradient Boosting Machine(LGBM)</td>
+                        <td>0.7452</td>
+                        <td>0.0895</td>
+                        <td>0.6618</td>
+                        <td>0.7591</td>
+                        <td>0.7383</td>
+                        <td>0.597</td>
+                        <td>0.6089</td>
+                        <td>0.085</td>
+                    </tr>
+                    <tr>
+                        <td>SVM - Linear Kernel(S-LK)</td>
+                        <td>0.7238</td>
+                        <td>0.0</td>
+                        <td>0.6399</td>
+                        <td>0.7346</td>
+                        <td>0.7138</td>
+                        <td>0.5655</td>
+                        <td>0.5786</td>
+                        <td>0.069</td>
+                    </tr>
+                    <tr>
+                        <td>Extra Trees Classifier(ETC)</td>
+                        <td>0.7162</td>
+                        <td>0.0871</td>
+                        <td>0.6086</td>
+                        <td>0.7212</td>
+                        <td>0.7039</td>
+                        <td>0.5566</td>
+                        <td>0.5729</td>
+                        <td>0.477</td>
+                    </tr>
+                    <tr>
+                        <td>Ada Boost Classifier(ABC)</td>
+                        <td>0.6667</td>
+                        <td>0.0649</td>
+                        <td>0.4064</td>
+                        <td>0.5549</td>
+                        <td>0.5976</td>
+                        <td>0.4372</td>
+                        <td>0.4639</td>
+                        <td>0.122</td>
+                    </tr>
+                    <tr>
+                        <td>Ridge Classifier(RC)</td>
+                        <td>0.6524</td>
+                        <td>0.0</td>
+                        <td>0.5035</td>
+                        <td>0.6372</td>
+                        <td>0.6309</td>
+                        <td>0.4435</td>
+                        <td>0.4616</td>
+                        <td>0.021</td>
+                    </tr>
+                    <tr>
+                        <td>Linear Discriminant Analysis(LDA)</td>
+                        <td>0.6452</td>
+                        <td>0.0877</td>
+                        <td>0.6017</td>
+                        <td>0.6976</td>
+                        <td>0.6472</td>
+                        <td>0.4764</td>
+                        <td>0.4945</td>
+                        <td>0.033</td>
+                    </tr>
+                    <tr>
+                        <td>K Neighbors Classifier(KNC)</td>
+                        <td>0.5667</td>
+                        <td>0.0855</td>
+                        <td>0.3074</td>
+                        <td>0.5374</td>
+                        <td>0.5312</td>
+                        <td>0.282</td>
+                        <td>0.3044</td>
+                        <td>0.128</td>
+                    </tr>
+                    <tr>
+                        <td>Naive Bayes(NB)</td>
+                        <td>0.5524</td>
+                        <td>0.0754</td>
+                        <td>0.5532</td>
+                        <td>0.5649</td>
+                        <td>0.5392</td>
+                        <td>0.3405</td>
+                        <td>0.3553</td>
+                        <td>0.026</td>
+                    </tr>
+                    <tr>
+                        <td>Quadratic Discriminant Analysis(QDA)</td>
+                        <td>0.1129</td>
+                        <td>0.0558</td>
+                        <td>0.28</td>
+                        <td>0.0314</td>
+                        <td>0.0464</td>
+                        <td>0.0544</td>
+                        <td>0.0851</td>
+                        <td>0.031</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+
+    </div> -->
+        <!-- <div class="mb-5" id="chartdiv_line"></div> -->
+        <!-- HTML -->
+
+        <!-- ['Gradient Boosting Classifier', 'Decision Tree Classifier', 'Random Forest Classifier', 'Logistic Regression', 'Light Gradient Boosting Machine', 'SVM - Linear Kernel', 'Extra Trees Classifier', 'Ada Boost Classifier', 'Ridge Classifier', 'Linear Discriminant
+Analysis', 'K Neighbors Classifier', 'Naive Bayes', 'Quadratic Discriminant Analysis'] -->
+
+
+        <div class="fluid-container p-1">
+            <div class="row">
+                <div class="col-6">
+                    <div id="chartdiv"></div>
+                </div>
+                <div class="col-6">
+                    {{table}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div id="chartdiv_reg"></div>
+                </div>
+                <div class="col-6">
+                    {{table_reg}}
+                </div>
+            </div>
+
+            <div class="pr-5">
+                <span class="pl-3 pr-3 pt-2 pb-2 rounded bg-purple white float-right"><a href="">BUY</a></span>
+                <span class="pl-3 pr-3 pt-2 pb-2 float-right"><a class="purple" href="">Negotiate</a></span>
+            </div>
+
+        </div>
+
+    </section>
+
+    <footer>
+
+        <div class="footer-main">
+            <div class="footer-area footer-padding">
+                <div class="container">
+                    <div class="row  justify-content-between">
+                        <div class="col-lg-3 col-md-4 col-sm-8">
+                            <div class="single-footer-caption mb-30">
+
+                                <div class="footer-logo">
+                                    <a href="index.html"><img src="assets/img/logo/logo2_footer.png" alt=""></a>
+                                </div>
+                                <div class="footer-tittle">
+                                    <div class="footer-pera">
+                                        <p class="info1">Lorem ipsum dolor sit amet, consectetur adipisicing elit sed do eiusmod tempor incididunt ut labore.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-5">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Quick Links</h4>
+                                    <ul>
+                                        <li><a href="#">About</a></li>
+                                        <li><a href="#">Features</a></li>
+                                        <li><a href="#">Pricing</a></li>
+                                        <li><a href="#">Download</a></li>
+                                        <li><a href="#">Reviews</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4 col-sm-7">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Support</h4>
+                                    <ul>
+                                        <li><a href="#">Report a bug</a></li>
+                                        <li><a href="#">Privacy Policy</a></li>
+                                        <li><a href="#">Terms & Conditions</a></li>
+                                        <li><a href="#">Sitemap</a></li>
+                                        <li><a href="#">FAQs</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3 col-md-6 col-sm-8">
+                            <div class="single-footer-caption mb-50">
+                                <div class="footer-tittle">
+                                    <h4>Newsletter</h4>
+                                    <div class="footer-pera footer-pera2">
+                                        <p>Heaven fruitful doesn't over lesser in days. Appear </p>
+                                    </div>
+
+                                    <div class="footer-form">
+                                        <div id="mc_embed_signup">
+                                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative mail_part" novalidate="true">
+                                                <input type="email" name="EMAIL" id="newsletter-form-email" placeholder=" Email Address " class="placeholder hide-on-focus" onfocus="this.placeholder = ''" onblur="this.placeholder = ' Email Address '">
+                                                <div class="form-icon">
+                                                    <button type="submit" name="submit" id="newsletter-submit" class="email_icon newsletter-submit button-contactForm"><img src="assets/img/shape/form_icon.png" alt=""></button>
+                                                </div>
+                                                <div class="mt-10 info"></div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-xl-12 ">
+                            <div class="footer-copy-right">
+                                <p>
+                                    Copyright &copy;
+                                    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+                                    <script>
+                                        document.write(new Date().getFullYear());
+                                    </script> All rights reserved | This template is made with <i class="ti-heart" aria-hidden="true"></i> by <a href="https://colorlib.com/" target="_blank">Colorlib</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+
+    <script src="(% static 'assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+
+    <script src="(% static 'assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+    <script src="(% static 'assets/js/popper.min.js' %}"></script>
+    <script src="(% static 'assets/js/bootstrap.min.js' %}"></script>
+
+    <script src="(% static 'assets/js/jquery.slicknav.min.js' %}"></script>
+
+    <script src="(% static 'assets/js/owl.carousel.min.js' %}"></script>
+    <script src="(% static 'assets/js/slick.min.js' %}"></script>
+
+    <script src="(% static 'assets/js/wow.min.js' %}"></script>
+    <script src="(% static 'assets/js/animated.headline.js' %}"></script>
+
+    <script src="(% static 'assets/js/jquery.scrollUp.min.js' %}"></script>
+    <script src="(% static 'assets/js/jquery.nice-select.min.js' %}"></script>
+    <script src="(% static 'assets/js/jquery.sticky.js' %}"></script>
+    <script src="(% static 'assets/js/jquery.magnific-popup.js' %}"></script>
+
+    <script src="(% static 'assets/js/contact.js' %}"></script>
+    <script src="(% static 'assets/js/jquery.form.js' %}"></script>
+    <script src="(% static 'assets/js/jquery.validate.min.js' %}"></script>
+    <script src="(% static 'assets/js/mail-script.js' %}"></script>
+    <script src="(% static 'assets/js/jquery.ajaxchimp.min.js' %}"></script>
+
+    <script src="(% static 'assets/js/plugins.js' %}"></script>
+    <script src="(% static 'assets/js/main.js' %}"></script>
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-23581568-13');
+    </script>
+</body>
+
+<!-- Mirrored from preview.colorlib.com/theme/appco/contact.html by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 27 Mar 2021 05:32:51 GMT -->
+
+</html>
+
+
+</body>
+
+</html>

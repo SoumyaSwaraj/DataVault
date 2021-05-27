@@ -1,0 +1,23 @@
+{% extends 'core/base.html' %} {% load crispy_forms_tags %} {% block body %}
+
+
+<center class="container">
+
+    <form method="POST" style="margin: 4.1%; padding:10%; border-radius:1%;" target="">
+        {% csrf_token %}
+
+        <h1>Login Form</h1>
+        <br><br>
+
+        <fieldset class="form-group">
+            {{ form|crispy}}
+        </fieldset>
+
+        <button class="btn btn-outline-info" type="submit">login</button>
+        <br><br>
+        <p><a style="color:blue" href="{% url 'register' %}">Don't have account? sign up</a></p>
+
+    </form>
+
+</center>
+{% endblock %}
