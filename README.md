@@ -26,5 +26,11 @@ Interaction of our django app with machine learning libraries was alse challenge
 
 
 ----
-For screenshots and other details, visit:
+
+![Search & Filter Datasets Page Screen Shot](img03.png)
+>Search & Filter Datasets Page Screen Shot
+
+
+----
+For more screenshots and other details, visit:
 https://devfolio.co/submissions/datavault-7da5
