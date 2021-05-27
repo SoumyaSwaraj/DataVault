@@ -16,9 +16,15 @@ Interaction of our django app with machine learning libraries was alse challenge
 ----
 ![Home Page Screen Shot](img01.png)
 >Home Page Screen Shot
+
+
 ----
+
+
 ![3D Data Summarizing Graphs Screen Shot](img02.png)
-3D Data Summarizing Graphs Screen Shot
+>3D Data Summarizing Graphs Screen Shot
+
+
 ----
 For screenshots and other details, visit:
 https://devfolio.co/submissions/datavault-7da5
