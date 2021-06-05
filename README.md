@@ -32,5 +32,11 @@ Interaction of our django app with machine learning libraries was alse challenge
 
 
 ----
+
+### **Developers**
+* [Soumya Swaraj](https://github.com/SoumyaSwaraj)
+* [Naman Monga](https://github.com/Naman-Monga)
+* [Ritik Kansal](https://github.com/ritik-kansal)
+
 For more screenshots and other details, visit:
 https://devfolio.co/submissions/datavault-7da5
